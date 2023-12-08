@@ -21,14 +21,11 @@ fn get_replacement(textual_number: &str) -> String {
 
 fn substitute_textual_numbers(str: &str) -> String {
     let mut previous_replaced_string = str.to_owned();
-
-    loop {
-        let replaced_string = regex_replace_all!(
-            r"(one|two|three|four|five|six|seven|eight|nine)",
-            &previous_replaced_string,
-            |_, textual_numeric| { get_replacement(textual_numeric) }
-        );
-
+    while let Some(replaced_string) = regex_replace_all!(
+        r"(one|two|three|four|five|six|seven|eight|nine)",
+        &previous_replaced_string,
+        |_, textual_numeric| { get_replacement(textual_numeric) }
+    ) {
         if replaced_string == previous_replaced_string {
             break;
         }
